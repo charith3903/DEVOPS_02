@@ -15,20 +15,7 @@ pipeline {
                 bat 'docker build -t charith01/devops02-cuban:%BUILD_NUMBER% .'
             }
         }
-        stage('Login to Docker Hub') {
-            steps {
-               withCredentials([string(credentialsId: 'devops-dockerhubpassword', variable: 'devops_dockerhubpassword')]) {
-              bat'docker login -u charith01 -p ${devops_dockerhubpassword}'
-            }
-               
-               
-            }
-        }
-        stage('Push Image') {
-            steps {
-                bat 'docker push charith01/devops02-cuban:%BUILD_NUMBER%'
-            }
-        }
+       
     }
     post {
         always {
