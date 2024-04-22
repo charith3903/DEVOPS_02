@@ -1,7 +1,6 @@
 pipeline {
     agent any 
-   
-    
+
     stages { 
         stage('SCM Checkout') {
             steps {
@@ -15,8 +14,16 @@ pipeline {
                 bat 'docker build -t charith01/devops02-cuban:%BUILD_NUMBER% .'
             }
         }
-       
+        stage('Run') {
+    steps {
+        bat '''
+            docker run -d --name New_container -p 8080:80 charith01/devops02-cuban:%BUILD_NUMBER%
+        '''
     }
+
+        }
+    }
+    
     post {
         always {
             bat 'docker logout'
